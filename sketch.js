@@ -123,7 +123,7 @@ function draw() {
     obstaclesGroup.setLifetimeEach(-1);
     cloudsGroup.setLifetimeEach(-1);
     
-    if(touches.length>0 || mousePressedOver(restart)) {    // 13 PASSO
+    if(touches.length>0 || keyDown("SPACE")) {    // 13 PASSO
       reset();
       touches = []       // 13.1 PASSO
     }

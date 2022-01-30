@@ -13,6 +13,7 @@ var score=0;
 var gameOver, restart;
 
 
+
 function preload(){
   trex_running =   loadAnimation("trex1.png","trex3.png","trex4.png");
   trex_collided = loadAnimation("trex_collided.png");
@@ -36,22 +37,12 @@ function setup() {
   //createCanvas(600, 200);  // 1 passo
   createCanvas(windowWidth, windowHeight);
   
-  
-  
-  
-  
-  
   //trex = createSprite(50,180,20,50);  // 2 passo
   trex = createSprite(50,height-100,20,50);
   
   trex.addAnimation("running", trex_running);
   trex.addAnimation("collided", trex_collided);
   trex.scale = 0.5;
-  
-  
-  
-  
-  
   
   //ground = createSprite(200,180,400,20);  //3 passo
   ground = createSprite(width/2,height-80,width,20);
@@ -87,8 +78,8 @@ function setup() {
 function draw() {
   //trex.debug = true;
   background(200);
-  //text("Pontuação: "+ score, 500,50);        // 12 passos
-  text("Pontuação: "+ score, (width*1/10),50);        // 12 passos
+  //text("Pontuação: "+ score, 500,50);        // 11 passos
+  text("Pontuação: "+ score, (width*1/10),50);        // 11 passos
   
   if (gameState===PLAY){
     score = score + Math.round(getFrameRate()/60);
@@ -96,8 +87,9 @@ function draw() {
     //altere a animação de trex
     trex.changeAnimation("running", trex_running);  
     
-    if(keyDown("space") && trex.y >= 159) {
+    if((touches.length > 0 || keyDown("SPACE")) && trex.y >= (height*2/3) && trex.y >= (height-100)) {  // 12 PASSOS
       trex.velocityY = -12;
+      touches = [];      // 12.1 PASSO
     }
   
     trex.velocityY = trex.velocityY + 0.8
@@ -131,8 +123,9 @@ function draw() {
     obstaclesGroup.setLifetimeEach(-1);
     cloudsGroup.setLifetimeEach(-1);
     
-    if(mousePressedOver(restart)) {
+    if(touches.length>0 || mousePressedOver(restart)) {    // 13 PASSO
       reset();
+      touches = []       // 13.1 PASSO
     }
   }
   
@@ -153,12 +146,13 @@ function reset(){
 
 function spawnObstacles() {
   if(frameCount % 60 === 0) {
-   // var obstacle = createSprite(600,165,10,40);  // 5 PASSO
+    //var obstacle = createSprite(600,165,10,40);  // 5 PASSO
     var obstacle = createSprite(width,height-90,10,40);  // 5 PASSO
 
     //obstacle.debug = true;
     obstacle.velocityX = -(6 + 3*score/100);
-    
+    console.log(obstacle.velocityX);
+
     //gere obstáculos aleatórios
     var rand = Math.round(random(1,6));
     switch(rand) {
@@ -179,7 +173,7 @@ function spawnObstacles() {
     
     //atribua dimensão e tempo de vida ao obstáculo           
     obstacle.scale = 0.5;
-    obstacle.lifetime = 300;
+    obstacle.lifetime = 300;    
 
 
 
@@ -192,10 +186,13 @@ function spawnObstacles() {
 function spawnClouds() {
   //escreva o código aqui para gerar as nuvens
   if (frameCount % 60 === 0) {
-   // var cloud = createSprite(600,120,40,10);   //8 passos
-    var cloud = createSprite(width,height*2/3,40,10);
-   // cloud.y = Math.round(random(80,120));        //9 passos
-    cloud.y = Math.round(random((height*1/30),(height/2)));
+
+   //var cloud = createSprite(600,120,40,10);   //8 passos
+   var cloud = createSprite(width,height*2/3,40,10);
+
+    //cloud.y = Math.round(random(80,120));        //9 passos
+    cloud.y = Math.round(random((height*0.05),(height/2)));
+
     cloud.addImage(cloudImage);
     cloud.scale = 0.5;
     cloud.velocityX = -3;

@@ -198,8 +198,8 @@ function spawnClouds() {
     cloud.velocityX = -3;
 
     //atribua tempo de vida à variável
-    cloud.lifetime = 100 ;              // 10 passos
-    //cloud.lifetime = (width/3) ;
+    //cloud.lifetime = 100 ;              // 10 passos
+    cloud.lifetime = (width/3) ;
     
     //ajuste a profundidade (depth)
     cloud.depth = trex.depth;

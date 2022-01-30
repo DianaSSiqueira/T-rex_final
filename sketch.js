@@ -87,7 +87,7 @@ function draw() {
     //altere a animação de trex
     trex.changeAnimation("running", trex_running);  
     
-    if((touches.length > 0 || keyDown("SPACE")) && trex.y >= (height*2/3) && trex.y >= (height-100)) {  // 12 PASSOS
+    if((touches.length > 0 || keyDown("SPACE")) && trex.y >= (height-100)) {  // 12 PASSOS
       trex.velocityY = -12;
       touches = [];      // 12.1 PASSO
     }
